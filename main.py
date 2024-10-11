@@ -373,21 +373,13 @@ class TELEGRAMBOT: # объявляем родительский класс
             if cityes[i][-1] == "\n":
                 cityes[i] = cityes[i][:-1]
                 print(cityes[i])
-        if city in set(cityes_all)
-        with open('city_russian.txt', 'r') as f:
-            # Прочитайте содержимое файла в список
-            city = f.readline()
-            print(city)
-            # Итерируйтесь по городам в списке
-            for citys in city:
-                print(citys)
-                city_name = citys.strip()
-                if (city_name == city):
-                    flag = True
-                    break
-                else:
-                    flag = False
+        if city in set(cityes):
+            flag = True
+        else:
+            flag = False
+
         print(flag)
+
         if flag == True:
             bot.send_message(message.chat.id, f'Напишите письмо которое он/она никогда не увидит: 👇')
             bot.register_next_step_handler(message, self.user_note)
@@ -404,7 +396,7 @@ class TELEGRAMBOT: # объявляем родительский класс
         conn.commit()
         cur.close()
         conn.close()
-        time.sleep(0.)
+        time.sleep(0.1)
         if len(note) > 1000:
             bot.send_message(message.chat.id, 'Извините, но ваше письмо слишком длинное!')
             bot.register_next_step_handler(message, self.user_note)
