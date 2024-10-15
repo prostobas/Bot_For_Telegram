@@ -359,10 +359,10 @@ class TELEGRAMBOT: # объявляем родительский класс
             bot.register_next_step_handler(message, self.user_age)
 
     def user_city(self, message):
-        global city
+        global cit
         flag = False
-        city = message.text.strip()
-        print(city)
+        cit = message.text.strip()
+        print(cit)
         file = open("city.txt")
         cityes = []
         for i in file:
@@ -374,7 +374,7 @@ class TELEGRAMBOT: # объявляем родительский класс
             if cityes[i][-1] == "\n":
                 cityes[i] = cityes[i][:-1]
                 print(cityes[i])
-        if city in set(cityes):
+        if cit in set(cityes):
             flag = True
         else:
             flag = False
