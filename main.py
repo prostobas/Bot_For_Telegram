@@ -63,18 +63,18 @@ class RECORDING():
         self.smail_d = ["❤", "🌹", "👩", "💋", "🙌", "😩", "‍️👱‍♀️", "💜", "🧡", "💕", "🥰", "😘", "😙"]
 
     def array(self, len_us, us, id):
-        l = len_us
-        u = us
-        i = id
-        y = random.randrange(0, l)
+        len_user = len_us
+        user = us
+        user_id = id
+        y = random.randrange(0, len_user)
         if y not in self.ARRAY: #and us[y][0] != id:
             self.ARRAY.append(y)
             return y
-        elif len(self.ARRAY) == l:
+        elif len(self.ARRAY) == len_user:
             self.ARRAY.clear()
-            return self.array(l, u, i)
+            return self.array(len_user, user, user_id)
         else:
-            return self.array(l, u, i)
+            return self.array(len_user, user, user_id)
 
     def record(self, mes):
         conn = sqlite3.connect('baza.bd')
