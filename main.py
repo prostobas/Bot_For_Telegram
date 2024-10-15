@@ -77,7 +77,7 @@ class RECORDING():
             return self.array(l, u, i)
 
     def record(self, mes):
-        conn = sqlite3.connect('baza.sql')
+        conn = sqlite3.connect('baza.bd')
         cur = conn.cursor()
         cur.execute('SELECT * FROM users')
         users = cur.fetchall()
@@ -113,7 +113,7 @@ class EDIT():
             bot.register_next_step_handler(mes, self.wish_notes)
 
     def wish_nik(self, mes):
-        conn = sqlite3.connect('baza.sql')
+        conn = sqlite3.connect('baza.bd')
         cur = conn.cursor()
         nik = mes.text.strip()
         regex = "^[a-zA-Zа-яА-ЯеЁ,.?/!0123456789]+$"
@@ -142,7 +142,7 @@ class EDIT():
     def wish_pol(self, mes):
         uspol = mes.text.strip()
         if uspol.lower() == 'мужской' or uspol.lower() == 'женский':
-            conn = sqlite3.connect('baza.sql')
+            conn = sqlite3.connect('baza.bd')
             cur = conn.cursor()
             data = (uspol, mes.from_user.id)
             cur.execute("UPDATE users set pol = ? where id = ?", data)
@@ -161,7 +161,7 @@ class EDIT():
         try:
             age = int(age)
             if age > 0 and age <= 100:
-                conn = sqlite3.connect('baza.sql')
+                conn = sqlite3.connect('baza.bd')
                 cur = conn.cursor()
                 age = mes.text.strip()
                 data = (age, mes.from_user.id)
@@ -197,7 +197,7 @@ class EDIT():
 
 class ANKETA:
     def ank(self, mes):
-        conn = sqlite3.connect('baza.sql')
+        conn = sqlite3.connect('baza.bd')
         cur = conn.cursor()
         cur.execute('SELECT * FROM users')
         users = cur.fetchall()
@@ -227,7 +227,7 @@ class TELEGRAMBOT: # объявляем родительский класс
         self._DELETEBUT = DELETEBUT
 
     def examination(self, id):
-        conn = sqlite3.connect('baza.sql')
+        conn = sqlite3.connect('baza.bd')
         cur = conn.cursor()
         cur.execute('CREATE TABLE IF NOT EXISTS users '
                     '(id int auto_increment primary key,'
@@ -241,7 +241,7 @@ class TELEGRAMBOT: # объявляем родительский класс
         cur.close()
         conn.close()
 
-        conn = sqlite3.connect('baza.sql')
+        conn = sqlite3.connect('baza.bd')
         cur = conn.cursor()
         cur.execute('SELECT * FROM users')
         users = cur.fetchall()
@@ -302,7 +302,7 @@ class TELEGRAMBOT: # объявляем родительский класс
     def user_name(self, message):
         global nik
         nik = message.text.strip()
-        conn = sqlite3.connect('baza.sql')
+        conn = sqlite3.connect('baza.bd')
         cur = conn.cursor()
         cur.execute('SELECT * FROM users')
         users = cur.fetchall()
@@ -362,7 +362,8 @@ class TELEGRAMBOT: # объявляем родительский класс
         global city
         flag = False
         city = message.text.strip()
-        file = open("city_russian.txt")
+        print(city)
+        file = open("city.txt")
         cityes = []
         for i in file:
             cityes.append(i)
@@ -388,7 +389,7 @@ class TELEGRAMBOT: # объявляем родительский класс
             bot.register_next_step_handler(message, self.user_city)
     def user_note(self, message):
         note = message.text.strip()
-        conn = sqlite3.connect('baza.sql')
+        conn = sqlite3.connect('baza.bd')
         cur = conn.cursor()
         cur.execute(
             "INSERT INTO users (id, nik, pol, age,city, notes) VALUES (('%d'), ('%s'), ('%s'), ('%d'), ('%s'), ('%s'))" % (
