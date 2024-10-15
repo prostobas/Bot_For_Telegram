@@ -359,34 +359,24 @@ class TELEGRAMBOT: # объявляем родительский класс
             bot.register_next_step_handler(message, self.user_age)
 
     def user_city(self, message):
-        global cit
-        flag = False
-        cit = message.text.strip()
-        print(cit)
-        file = open("city.txt")
+        global city
+        city = message.text.strip()
+        file = open('citys.dat', encoding='utf-8')
         cityes = []
         for i in file:
             cityes.append(i)
 
-        print(cityes)
-
         for i in range(len(cityes)):
             if cityes[i][-1] == "\n":
                 cityes[i] = cityes[i][:-1]
-                print(cityes[i])
-        if cit in set(cityes):
-            flag = True
-        else:
-            flag = False
 
-        print(flag)
-
-        if flag == True:
+        if city in cityes:
             bot.send_message(message.chat.id, f'Напишите письмо которое он/она никогда не увидит: 👇')
             bot.register_next_step_handler(message, self.user_note)
         else:
             bot.send_message(message.chat.id, f'Вы написали город которого нет в России. Напишите свой настоящий город!')
             bot.register_next_step_handler(message, self.user_city)
+
     def user_note(self, message):
         note = message.text.strip()
         conn = sqlite3.connect('baza.bd')
